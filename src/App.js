@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 
+import './App.css';
 import TextInput from './components/TextInput';
 import validate from './services/validate';
 import Email from './components/Email';
@@ -10,9 +10,10 @@ class App extends Component {
 
   constructor() {
     super();
-
+    // Form State
     this.state = {
       formIsValid: false,
+      error: {},
       formControls: {
         ssn: {
           value: '',
@@ -47,25 +48,68 @@ class App extends Component {
         country: {
           value: '',
           placeholder: 'Select Country',
-          valid: true,
-          touched: true,
+          valid: false,
+          touched: false,
           validationRules: {
             isRequired: true,
           },
-          options: [
-            { value: 'male', displayValue: 'Male' },
-            { value: 'female', displayValue: 'Female' }
-          ]
+          options: [{
+            value: '',
+            displayValue: 'Select a Country'
+          }]
         }
       }
     }
   }
 
-  changeHandler = event => {
+  componentDidMount() {
+    if (!localStorage.getItem('formControls')) {
+      fetch("https://restcountries.eu/rest/v2/all")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setCountryFromApi(result);
+          },
+          (error) => {
+            this.setState({
+              isLoaded: false,
+              error: error,
+            });
+          }
+        )
+    } else {
+      this.setState({
+        formControls: JSON.parse(localStorage.getItem('formControls')),
+      });
+    }
+    if (localStorage.getItem('formIsValid')) {
+      this.setState({
+        formIsValid: JSON.parse(localStorage.getItem('formIsValid')),
+      });
+    }
+  }
 
+  setCountryFromApi = result => {
+    const updatedControls = {
+      ...this.state.formControls
+    };
+    const updatedFormElement = {
+      ...updatedControls['country']
+    };
+    result.forEach(element => {
+      const option = { value: element.name, displayValue: element.name };
+      updatedFormElement.options.push(option);
+    });
+    updatedControls['country'] = updatedFormElement;
+    localStorage.setItem('formControls', JSON.stringify(updatedControls));
+    this.setState({
+      formControls: updatedControls
+    });
+  }
+
+  changeHandler = event => {
     const name = event.target.name;
     const value = event.target.value;
-
     const updatedControls = {
       ...this.state.formControls
     };
@@ -75,14 +119,13 @@ class App extends Component {
     updatedFormElement.value = value;
     updatedFormElement.touched = true;
     updatedFormElement.valid = validate(value, updatedFormElement.validationRules);
-
     updatedControls[name] = updatedFormElement;
-
     let formIsValid = true;
     for (let inputIdentifier in updatedControls) {
       formIsValid = updatedControls[inputIdentifier].valid && formIsValid;
     }
-
+    localStorage.setItem('formControls', JSON.stringify(updatedControls));
+    localStorage.setItem('formIsValid', JSON.stringify(formIsValid));
     this.setState({
       formControls: updatedControls,
       formIsValid: formIsValid
@@ -91,6 +134,8 @@ class App extends Component {
 
 
   formSubmitHandler = () => {
+    localStorage.setItem('formControls', '');
+    localStorage.setItem('formIsValid', '');
     console.log("Success");
   }
 
