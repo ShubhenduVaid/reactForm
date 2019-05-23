@@ -1,0 +1,16 @@
+.card {
+  width: 30%;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.control-error {
+  border: 1px solid red;
+}
+
+select {
+  height: 40px!important;
+}
