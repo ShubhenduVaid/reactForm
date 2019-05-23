@@ -104,8 +104,8 @@ class App extends Component {
               placeholder={this.state.formControls.ssn.placeholder}
               value={this.state.formControls.ssn.value}
               onChange={this.changeHandler}
-              touched={this.state.formControls.ssn.touched}
-              valid={this.state.formControls.ssn.valid}
+              touched={this.state.formControls.ssn.touched.toString()}
+              valid={this.state.formControls.ssn.valid.toString()}
               error="Please enter valid SSN"
               label="Social Security Number"
             />
@@ -114,8 +114,8 @@ class App extends Component {
               placeholder={this.state.formControls.phNo.placeholder}
               value={this.state.formControls.phNo.value}
               onChange={this.changeHandler}
-              touched={this.state.formControls.phNo.touched}
-              valid={this.state.formControls.phNo.valid}
+              touched={this.state.formControls.phNo.touched.toString()}
+              valid={this.state.formControls.phNo.valid.toString()}
               error="Please enter valid Phone Number"
               label="Phone Number"
             />
@@ -124,8 +124,8 @@ class App extends Component {
               placeholder={this.state.formControls.email.placeholder}
               value={this.state.formControls.email.value}
               onChange={this.changeHandler}
-              touched={this.state.formControls.email.touched}
-              valid={this.state.formControls.email.valid}
+              touched={this.state.formControls.email.touched.toString()}
+              valid={this.state.formControls.email.valid.toString()}
               error="Please enter valid Email"
               label="Email"
             />
@@ -134,8 +134,8 @@ class App extends Component {
               value={this.state.formControls.country.value}
               onChange={this.changeHandler}
               options={this.state.formControls.country.options}
-              touched={this.state.formControls.country.touched}
-              valid={this.state.formControls.country.valid}
+              touched={this.state.formControls.country.touched.toString()}
+              valid={this.state.formControls.country.valid.toString()}
               label="Country"
             />
 

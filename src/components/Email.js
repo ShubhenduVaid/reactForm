@@ -5,7 +5,7 @@ const Email = props => {
   let formControl = "form-control";
   let validationError = null;
 
-  if (props.touched && !props.valid && props.value.trim() !== '') {
+  if (props.touched === 'true' && props.valid === 'false' && props.value.trim() !== '') {
     formControl = 'form-control control-error';
     validationError = <p className="text-danger">{props.error}</p>;
   }
