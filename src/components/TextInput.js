@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 const TextInput = props => {
 
   let formControl = "form-control";
@@ -17,5 +17,14 @@ const TextInput = props => {
     </div>
   );
 }
+
+TextInput.propTypes = {
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  touched: PropTypes.string,
+  valid: PropTypes.string,
+  error: PropTypes.string,
+  label: PropTypes.string,
+};
 
 export default TextInput;

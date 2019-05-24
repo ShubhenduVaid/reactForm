@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Email = props => {
 
@@ -18,5 +19,14 @@ const Email = props => {
     </div>
   );
 }
+
+Email.propTypes = {
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  touched: PropTypes.string,
+  valid: PropTypes.string,
+  error: PropTypes.string,
+  label: PropTypes.string,
+};
 
 export default Email;
